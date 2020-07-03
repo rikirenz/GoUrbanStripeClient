@@ -2,29 +2,26 @@ package me.riccardo.candido.GoUrbanStripeClient;
 
 public class Transaction {
 
-    private Double amount;
+    private Integer amount;
     private String emailAddress;
-    private Boolean refund;
 
     /**
      * Class constructor.
      * @param emailAddress  string for user registration
      * @param amount  amount the user wants to move
-     * @param refund  if true the transaction is a
-     *               refund otherwise is a capture
+     *
      */
 
-    public Transaction (String emailAddress, Double amount, Boolean refund) {
+    public Transaction (String emailAddress, Integer amount) {
         this.amount = amount;
         this.emailAddress = emailAddress;
-        this.refund = refund;
     }
 
-    public Double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
@@ -36,16 +33,8 @@ public class Transaction {
         this.emailAddress = emailAddress;
     }
 
-    public Boolean getRefund() {
-        return refund;
-    }
-
-    public void setRefund(Boolean refund) {
-        this.refund = refund;
-    }
-
     public String toString() {
-        return this.getEmailAddress() + ", " + this.getAmount() + ", refund: " + this.getRefund();
+        return this.getEmailAddress() + ", " + this.getAmount();
     }
 
 }

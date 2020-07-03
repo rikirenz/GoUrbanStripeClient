@@ -2,54 +2,40 @@ package me.riccardo.candido.GoUrbanStripeClient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import java.util.Scanner;
+
 
 @SpringBootApplication
 public class GoUrbanStripeClientApplication {
 
 	public static void main(String[] args) {
-		// init spring boot
-		SpringApplication.run(GoUrbanStripeClientApplication.class, args);
-
-		System.out.println("Welcome to the GoUrban Client for Stripe!");
-		Transaction currTransaction = collectUserInputs();
-		System.out.println("Transaction started");
-		System.out.println("Transaction: " +  currTransaction.toString());
-
-
-		System.out.println("Transaction ended");
-	}
-
-	public static Transaction collectUserInputs() {
-		Scanner keyboard = new Scanner(System.in);
-		String mailAddress = "";
-		Double amount = 0.0;
-		Boolean refund = false;
+		// init spring boot. I have added it but we do not need it
+		// SpringApplication.run(GoUrbanStripeClientApplication.class, args);
+		System.out.println("  _____         _    _      _                 _ ");
+		System.out.println(" / ____|       | |  | |    | |               | |");
+		System.out.println("| |  __  ___   | |  | |_ __| |__   __ _ _ __ | |");
+		System.out.println("| | |_ |/ _ \\  | |  | | '__| '_ \\ / _` | '_ \\| |");
+		System.out.println("| |__| | (_) | | |__| | |  | |_) | (_| | | | |_|");
+		System.out.println(" \\_____|\\___/   \\____/|_|  |_.__/ \\__,_|_| |_(_)");
+		System.out.println("");
 
 		while (true) {
-			System.out.println("Please enter your mail address");
-			mailAddress = keyboard.nextLine().trim();
-			if (InputValidator.mailAddressInputValidation(mailAddress) == false) continue;
-			break;
+			System.out.println("Welcome to the GoUrban Client for Stripe!");
+
+			// Owner and Charge sub
+			Transaction currTransaction = InputCollector.collectUserInputs();
+			System.out.println("Transaction started");
+			StripeClient sc = new StripeClient();
+			sc.submitChargeToStripe(currTransaction);
+			System.out.println("Transaction ended");
+
+			// Capture or Refund sub
+			if (InputCollector.confirmationFromUser()) {
+				if (sc.submitCaptureToStripe()) System.out.println("Capture confirmed!");
+				else System.out.println("Capture failed; we are sorry. There has been an issue.");
+			} else {
+				if (sc.submitRefundToStripe()) System.out.println("Refund confirmed!");
+				else System.out.println("Refund failed; we are sorry. There has been an issue.");
+			}
 		}
-
-		while (true) {
-			System.out.println("Please enter the amount you would like to transfer (€)");
-			String userAmount = keyboard.nextLine().trim();
-			if (InputValidator.amountValidation(userAmount) == false) continue;
-			amount = Double.valueOf(userAmount);
-			break;
-		}
-
-		while (true) {
-			System.out.println("Write C to capture it or R to refund it.");
-			String userChoice = keyboard.nextLine().trim();
-			if (InputValidator.CorR(userChoice) == false) continue;
-			refund = userChoice.toUpperCase().equals("R");
-			break;
-		}
-
-
-		return new Transaction(mailAddress, amount, refund);
 	}
 }
