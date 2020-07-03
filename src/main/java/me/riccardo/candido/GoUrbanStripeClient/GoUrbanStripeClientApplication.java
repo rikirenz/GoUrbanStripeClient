@@ -10,13 +10,15 @@ public class GoUrbanStripeClientApplication {
 	public static void main(String[] args) {
 		// init spring boot. I have added it but we do not need it
 		// SpringApplication.run(GoUrbanStripeClientApplication.class, args);
-		System.out.println("  _____         _    _      _                 _ ");
-		System.out.println(" / ____|       | |  | |    | |               | |");
-		System.out.println("| |  __  ___   | |  | |_ __| |__   __ _ _ __ | |");
-		System.out.println("| | |_ |/ _ \\  | |  | | '__| '_ \\ / _` | '_ \\| |");
-		System.out.println("| |__| | (_) | | |__| | |  | |_) | (_| | | | |_|");
-		System.out.println(" \\_____|\\___/   \\____/|_|  |_.__/ \\__,_|_| |_(_)");
-		System.out.println("");
+		System.out.println("             _    _      _                 _ ");
+		System.out.println("            | |  | |    | |               | |");
+		System.out.println("  __ _  ___ | |  | |_ __| |__   __ _ _ __ | |");
+		System.out.println(" / _` |/ _ \\| |  | | '__| '_ \\ / _` | '_ \\| |");
+		System.out.println("| (_| | (_) | |__| | |  | |_) | (_| | | | |_|");
+		System.out.println(" \\__, |\\___/ \\____/|_|  |_.__/ \\__,_|_| |_(_)");
+		System.out.println("  __/ |                                      ");
+		System.out.println(" |___/                                       ");
+
 
 		while (true) {
 			System.out.println("Welcome to the GoUrban Client for Stripe!");
